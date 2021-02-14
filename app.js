@@ -4,7 +4,8 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
-const error = document.querySelector(".modal");
+const errorOfContent = document.querySelector(".contentError");
+const errorOfTime = document.querySelector(".timeError");
 
 // selected image 
 let sliders = [];
@@ -18,7 +19,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 // show images 
 const showImages = (images) => {
   if (images.length <= 0) {
-    error.style.display = "block";
+    errorOfContent.style.display = "block";
   }
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
@@ -78,7 +79,26 @@ const createSlider = () => {
   imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value || 1000;
   if (duration < 0) {
-    alert("Please input a positive value");
+    let answer = confirm("Time can not be negative value. Do you want to convert this negative value into positive?");
+    if (answer) {
+      sliders.forEach(slide => {
+        let item = document.createElement('div')
+        item.className = "slider-item";
+        item.innerHTML = `<img class="w-100"
+      src="${slide}"
+      alt="">`;
+        sliderContainer.appendChild(item)
+      })
+      changeSlide(0)
+      timer = setInterval(function () {
+        slideIndex++;
+        changeSlide(slideIndex);
+      }, -1 * duration);
+    } else {
+      errorOfTime.style.display = "block";
+      imagesArea.style.display = "block";
+      return;
+    }
   } else {
     sliders.forEach(slide => {
       let item = document.createElement('div')
@@ -152,5 +172,6 @@ const toggleSpinner = () => {
 
 // error message handle
 const closed = () => {
-  error.style.display = "none";
+  errorOfContent.style.display = "none";
+  errorOfTime.style.display = "none";
 }

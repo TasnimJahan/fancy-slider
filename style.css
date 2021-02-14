@@ -36,7 +36,8 @@ img {
   cursor: pointer;
 }
 
-.prev, .next {
+.prev,
+.next {
   background-color: transparent;
   padding: 8px 10px;
   color: #fff;
@@ -55,20 +56,24 @@ img {
   display: none;
 }
 
-.modal{
+.modal {
   text-align: center;
 }
-.modal-title{
+
+.modal-title {
   text-align: center;
 }
-#no-content{
+
+#no-content {
   color: red;
   font-size: 1.5rem;
 }
+
 @media (max-width: 767px) {
   .justify-content-around.align-items-center.mt-3.gallery-header.mb-2 {
     flex-direction: column;
   }
+
   #sliders {
     height: 300px;
     width: 90%;
